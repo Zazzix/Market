@@ -11,6 +11,10 @@ export class ProductBuilder {
         this.product.product_name = faker.food.meat();
         return this;
     }
+    withnameFruit() {
+        this.product.product_name = faker.food.fruit();
+        return this;
+    }
     withPrice() {
         this.product.price = faker.number.int({ max: 100 });
         return this;

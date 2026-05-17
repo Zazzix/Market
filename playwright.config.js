@@ -45,6 +45,15 @@ export default defineConfig({
         baseURL: 'https://www.qacloud.dev',
       },
     },
+    {
+      name: 'ui',
+      testDir: './tests/ui',
+      use: {
+        baseURL: 'https://www.qacloud.dev',
+        ...devices['Desktop Chrome'],
+        headless: true,
+      },
+    },
     /*
         {
           name: 'chromium',
