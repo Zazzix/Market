@@ -7,6 +7,7 @@ export const test = base.extend({
         const app = new App(page);
         await app.login.open();
         await app.login.login();
+        //await this.page.waitForURL('**/market.html**');
         await use(app);
     }
 });

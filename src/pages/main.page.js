@@ -4,11 +4,17 @@ export class MainPage {
     constructor(page) {
         this.page = page;
 
-        this.addProductButton = page.getByRole('button', { name: '+ Add Product' });
+        this.searchProduct = page.getByRole('textbox', { name: 'Search by product, category, or detail...' });
+        this.productGrid = page.locator('#productsGrid');
     }
-    async addProductOpen() {
-        await this.addProductButton.click();
-        //await this.page.waitForURL('**/market.html**');
+    async productSearch(productName) {
+        await this.page.waitForLoadState('networkidle');
+        await this.searchProduct.click();
+        await this.searchProduct.fill(productName);
 
+    }
+    async getProductGrid() {
+        await this.page.waitForLoadState('networkidle');
+        return this.productGrid;
     }
 }
