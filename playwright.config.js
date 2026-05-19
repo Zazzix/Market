@@ -49,7 +49,7 @@ export default defineConfig({
       name: 'ui',
       testDir: './tests/ui',
       use: {
-        baseURL: 'https://www.qacloud.dev',
+        baseURL: 'https://realworld.qa.guru',
         ...devices['Desktop Chrome'],
         headless: true,
       },
