@@ -3,6 +3,7 @@ name: pw6 autotests
 on: 
   push:
     branches:
+      - main
       - cicd
       
   workflow_dispatch:
