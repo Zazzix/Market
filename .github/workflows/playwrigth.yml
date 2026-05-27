@@ -21,7 +21,7 @@ jobs:
       - name: Устанавливаем браузеры
         run: npx playwright install --with-deps
       - name: Запускаем тест
-        run: npm t
+        run: npx playwright test
         env:
           API_TOKEN: ${{secrets.API_TOKEN}}
       - name: list
