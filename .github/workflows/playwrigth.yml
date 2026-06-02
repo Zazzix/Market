@@ -34,6 +34,7 @@ jobs:
           ALLURE_ENDPOINT: https://allure.autotests.cloud
           ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
           ALLURE_PROJECT_ID: 5231
+          ALLURE_RESULTS: allure-results
       - name: list
         run: ls
       - name: Генерирую отчет allure 3 в один файл
