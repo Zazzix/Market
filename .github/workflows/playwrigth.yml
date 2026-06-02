@@ -51,3 +51,17 @@ jobs:
             allure-report/index.html
             allure-results
             playwright-report
+      - name: Отправка уведомления в Telegram
+        uses: appleboy/telegram-action@master
+        if: always()
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            🚀 *Сборка автотестов завершена!*
+            
+            *Проект:* pw6 autotests
+            *Статус:* ${{ job.status == 'success' && '✅ Успешно' || '❌ Ошибка' }}
+            
+            🔗 [Открыть отчет Allure TestOps](https://allure.autotests.cloud/project/5231/launches/)
