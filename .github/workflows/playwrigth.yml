@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - cicd
       
   workflow_dispatch:
 
@@ -19,12 +18,22 @@ jobs:
         uses: actions/setup-node@v6.4.0
       - name: Устанавливаем пакеты из package.json
         run: npm ci
+      - name: Install Allurectl
+        uses: allure-framework/setup-allurectl@v1
+        with:
+          allure-endpoint: https://allure.autotests.cloud
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: 5231
       - name: Устанавливаем браузеры
         run: npx playwright install --with-deps
-      - name: Запускаем тест
-        run: npx playwright test
+      - name: Запускаем тесты с отправкой в TestOps
+        run: allurectl watch -- npx playwright test
         env:
-          API_TOKEN: ${{secrets.API_TOKEN}}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          ALLURE_ENDPOINT: https://allure.autotests.cloud
+          ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+          ALLURE_PROJECT_ID: 5231
+          ALLURE_RESULTS: allure-results
       - name: list
         run: ls
       - name: Генерирую отчет allure 3 в один файл
@@ -41,3 +50,17 @@ jobs:
             allure-report/index.html
             allure-results
             playwright-report
+      - name: Отправка уведомления в Telegram
+        uses: appleboy/telegram-action@master
+        if: always()
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            🚀 *Сборка автотестов завершена!*
+            
+            *Проект:* pw6 autotests
+            *Статус:* ${{ job.status == 'success' && '✅ Успешно' || '❌ Ошибка' }}
+            
+            🔗 [Открыть отчет Allure TestOps](https://allure.autotests.cloud/project/5231/launches/)

@@ -52,6 +52,7 @@ export default defineConfig({
         baseURL: 'https://realworld.qa.guru',
         ...devices['Desktop Chrome'],
         headless: true,
+        screenshot: 'only-on-failure',
       },
     },
     /*
