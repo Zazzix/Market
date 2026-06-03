@@ -35,5 +35,5 @@
 
 Команды для запуска:
 * `npx playwright test` — запустить все тесты
-* `npx playwright test --ui` — запустить только UI тесты
-* `npx playwright test --api` — запустить только API тесты
+* `npx playwright test --project=ui` — запустить только UI тесты
+* `npx playwright test --project=api` — запустить только API тесты

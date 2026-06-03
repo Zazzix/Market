@@ -46,17 +46,20 @@ test('Filter by multiple categories @get', async ({ api }) => {
     expect(filteredProducts).toBe(true)
 });
 
+
 test('Update product price only @put', async ({ api }) => {
-    let response = await api.groceries.getAllGroceries();
-    let data = await response.json();
+    const product = new
+        ProductBuilder().withName().withPrice().withMeatCategory()
+        .withChilledTempZone().withWeighted().withStock().build();
 
-    const productIDForUpdate = data.products[0].id
-    const newPrice = faker.number.int({ max: 100 });
+    const createResponse = await api.groceries.createProduct(product);
+    const createData = await createResponse.json();
+    const productId = createData.id;
+    const priceData = new ProductBuilder().withPrice().build();
+    const updateResponse = await api.groceries.updatePrice(productId,
+        priceData.price);
+    const updateData = await updateResponse.json();
 
-    response = await api.groceries.updatePrice(productIDForUpdate, newPrice)
-    data = await response.json();
-
-    expect(response.status()).toBe(200);
-    expect(newPrice).toEqual(data.price)
+    expect(updateResponse.status()).toBe(200);
+    expect(priceData.price).toEqual(updateData.price);
 });
-
