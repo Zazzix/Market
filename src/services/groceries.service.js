@@ -1,5 +1,3 @@
-import { test, expect } from '@playwright/test';
-
 export class GroceriesService {
     constructor(request, headers) {
         this.request = request;
@@ -14,7 +12,6 @@ export class GroceriesService {
         return response;
     }
     async createProduct(product) {
-        //console.log(product);
         const response = await this.request.post('/api/groceries',
             {
                 headers: this.headers,
@@ -33,7 +30,6 @@ export class GroceriesService {
     }
 
     async updatePrice(id, price) {
-        //console.log(product);
         const response = await this.request.put(`/api/groceries/${id}`,
             {
                 headers: this.headers,

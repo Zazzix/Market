@@ -1,53 +1,61 @@
 import { faker, Faker } from "@faker-js/faker";
 
 export class ProductBuilder {
-    constructor() {
-        this.product = {
-            details: {}
-        };
-    }
+    details = {};
 
     withName() {
-        this.product.product_name = faker.food.meat();
+        this.product_name = faker.food.meat();
         return this;
     }
+
     withnameFruit() {
-        this.product.product_name = faker.food.fruit();
+        this.product_name = faker.food.fruit();
         return this;
     }
+
     withPrice() {
-        this.product.price = faker.number.int({ max: 100 });
+        this.price = faker.number.int({ max: 100 });
         return this;
     }
+
     withMeatCategory() {
-        this.product.category = 'meat-seafood';
+        this.category = 'meat-seafood';
         return this;
     }
+
     withChilledTempZone() {
-        this.product.temperature_zone = 'Chilled';
+        this.temperature_zone = 'Chilled';
         return this;
     }
+
     withInvalidTempZone() {
-        this.product.temperature_zone = 'Warm';
+        this.temperature_zone = 'Warm';
         return this;
     }
+
     withWeighted() {
-        this.product.weighted = faker.datatype.boolean();
+        this.weighted = faker.datatype.boolean();
         return this;
     }
+
     withStock() {
-        this.product.stock = faker.number.int({ max: 20 })
+        this.stock = faker.number.int({ max: 20 });
         return this;
     }
+
     withCountryDetails() {
-        this.product.details.country = faker.food.ethnicCategory();
+        this.details.country = faker.food.ethnicCategory();
         return this;
     }
+
     withIngridientDetails() {
-        this.product.details.ingridient = faker.food.ingredient();
+        this.details.ingridient = faker.food.ingredient();
         return this;
     }
+
     build() {
-        return this.product;
+        const result = { ...this };
+        
+        return result;
     }
 }
